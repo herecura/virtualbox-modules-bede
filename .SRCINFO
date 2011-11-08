@@ -1,6 +1,6 @@
 pkgbase = virtualbox-modules-bede
-	pkgver = 4.1.4
-	pkgrel = 1
+	pkgver = 4.1.6
+	pkgrel = 2
 	url = http://virtualbox.org
 	arch = i686
 	arch = x86_64
@@ -19,10 +19,10 @@ pkgbase = virtualbox-modules-bede
 	makedepends = linux-bede<3.2
 	makedepends = linux-bede-headers>=3.1
 	makedepends = linux-bede-headers<3.2
-	source = http://download.virtualbox.org/virtualbox/4.1.4/VirtualBox-4.1.4.tar.bz2
+	source = http://download.virtualbox.org/virtualbox/4.1.6/VirtualBox-4.1.6.tar.bz2
 	source = LocalConfig.kmk
 	source = 60-vboxguest.rules
-	md5sums = dc6e6801b3823332b6ca2e9915221aae
+	md5sums = 89b979d1b817242c7cdcb489898f166a
 	md5sums = 4c88bd122677a35f68abd76eb01b378b
 	md5sums = ed1341881437455d9735875ddf455fbe
 
