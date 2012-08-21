@@ -1,6 +1,6 @@
 pkgbase = virtualbox-modules-bede
-	pkgver = 4.1.18
-	pkgrel = 8
+	pkgver = 4.1.20
+	pkgrel = 1
 	url = http://virtualbox.org
 	arch = i686
 	arch = x86_64
@@ -19,11 +19,11 @@ pkgbase = virtualbox-modules-bede
 	makedepends = linux-bede<3.6
 	makedepends = linux-bede-headers>=3.5
 	makedepends = linux-bede-headers<3.6
-	source = http://download.virtualbox.org/virtualbox/4.1.18/VirtualBox-4.1.18.tar.bz2
+	source = http://download.virtualbox.org/virtualbox/4.1.20/VirtualBox-4.1.20.tar.bz2
 	source = LocalConfig.kmk
 	source = 60-vboxguest.rules
 	source = modules-load-virtualbox-bede
-	md5sums = 38db0a87cba659b484af868b0c2bd3ac
+	md5sums = 5784c6dda8a9d53f8f21b2d41eba903c
 	md5sums = 4c88bd122677a35f68abd76eb01b378b
 	md5sums = ed1341881437455d9735875ddf455fbe
 	md5sums = f2200ed91b6ec089d16cc3ada5418c73
@@ -34,7 +34,7 @@ pkgname = virtualbox-modules-bede-host
 	license = GPL
 	depends = linux-bede>=3.5
 	depends = linux-bede<3.6
-	provides = virtualbox-modules=4.1.18
+	provides = virtualbox-modules=4.1.20
 
 pkgname = virtualbox-modules-bede-guest
 	pkgdesc = Additions only for Arch Linux guests (kernel modules) (linux-bede)
@@ -42,5 +42,5 @@ pkgname = virtualbox-modules-bede-guest
 	license = GPL
 	depends = linux-bede>=3.5
 	depends = linux-bede<3.6
-	provides = virtualbox-archlinux-modules=4.1.18
+	provides = virtualbox-archlinux-modules=4.1.20
 
