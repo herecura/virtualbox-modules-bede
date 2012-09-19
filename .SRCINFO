@@ -1,46 +1,34 @@
 pkgbase = virtualbox-modules-bede
-	pkgver = 4.1.22
+	pkgver = 4.2.0
 	pkgrel = 1
 	url = http://virtualbox.org
 	arch = i686
 	arch = x86_64
 	license = GPL
-	makedepends = libstdc++5
-	makedepends = bin86
-	makedepends = dev86
-	makedepends = iasl
-	makedepends = libxslt
-	makedepends = libxml2
-	makedepends = libpng
-	makedepends = libidl2
-	makedepends = xalan-c
-	makedepends = sdl
 	makedepends = linux-bede>=3.5
 	makedepends = linux-bede<3.6
 	makedepends = linux-bede-headers>=3.5
 	makedepends = linux-bede-headers<3.6
-	source = http://download.virtualbox.org/virtualbox/4.1.22/VirtualBox-4.1.22.tar.bz2
-	source = LocalConfig.kmk
-	source = 60-vboxguest.rules
+	makedepends = virtualbox-host-source>=4.2.0
+	makedepends = virtualbox-guest-source>=4.2.0
 	source = modules-load-virtualbox-bede
-	md5sums = 84c5beeead094ce52d098105897aadbb
-	md5sums = 4c88bd122677a35f68abd76eb01b378b
-	md5sums = ed1341881437455d9735875ddf455fbe
+	source = 60-vboxguest.rules
 	md5sums = f2200ed91b6ec089d16cc3ada5418c73
+	md5sums = ed1341881437455d9735875ddf455fbe
 
 pkgname = virtualbox-modules-bede-host
-	pkgdesc = Kernel modules for VirtualBox (linux-bede)
+	pkgdesc = Kernel host modules for VirtualBox (linux-bede)
 	install = virtualbox-modules-bede-host.install
 	license = GPL
 	depends = linux-bede>=3.5
 	depends = linux-bede<3.6
-	provides = virtualbox-modules=4.1.22
+	provides = virtualbox-host-modules=4.2.0
 
 pkgname = virtualbox-modules-bede-guest
-	pkgdesc = Additions only for Arch Linux guests (kernel modules) (linux-bede)
+	pkgdesc = Kernel guest modules for VirtualBox (linux-bede)
 	install = virtualbox-modules-bede-guest.install
 	license = GPL
 	depends = linux-bede>=3.5
 	depends = linux-bede<3.6
-	provides = virtualbox-archlinux-modules=4.1.22
+	provides = virtualbox-guest-modules=4.2.0
 
