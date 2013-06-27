@@ -1,11 +1,11 @@
 pkgbase = virtualbox-modules-bede
 	pkgver = 4.2.14
-	pkgrel = 1
+	pkgrel = 2
 	url = http://virtualbox.org
 	arch = i686
 	arch = x86_64
 	license = GPL
-	makedepends = linux-bede>=3.9.7
+	makedepends = linux-bede>=3.9.8
 	makedepends = linux-bede<3.10
 	makedepends = linux-bede-headers>=3.9
 	makedepends = linux-bede-headers<3.10
