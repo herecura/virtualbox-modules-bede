@@ -1,6 +1,6 @@
 pkgbase = virtualbox-modules-bede
 	pkgver = 4.3.10
-	pkgrel = 7
+	pkgrel = 8
 	url = http://virtualbox.org
 	arch = i686
 	arch = x86_64
