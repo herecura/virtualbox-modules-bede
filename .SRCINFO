@@ -1,14 +1,14 @@
 pkgbase = virtualbox-modules-bede
 	pkgver = 4.3.20
-	pkgrel = 2
+	pkgrel = 3
 	url = http://virtualbox.org
 	arch = i686
 	arch = x86_64
 	license = GPL
-	makedepends = linux-bede>=3.17.6
-	makedepends = linux-bede<3.18
-	makedepends = linux-bede-headers>=3.17
-	makedepends = linux-bede-headers<3.18
+	makedepends = linux-bede>=3.18.1
+	makedepends = linux-bede<3.19
+	makedepends = linux-bede-headers>=3.18
+	makedepends = linux-bede-headers<3.19
 	makedepends = virtualbox-host-dkms>=4.3.20
 	makedepends = virtualbox-guest-dkms>=4.3.20
 	source = modules-load-virtualbox-bede
@@ -20,15 +20,15 @@ pkgname = virtualbox-modules-bede-host
 	pkgdesc = Kernel host modules for VirtualBox (linux-bede)
 	install = virtualbox-modules-bede-host.install
 	license = GPL
-	depends = linux-bede>=3.17
-	depends = linux-bede<3.18
+	depends = linux-bede>=3.18
+	depends = linux-bede<3.19
 	provides = virtualbox-host-modules=4.3.20
 
 pkgname = virtualbox-modules-bede-guest
 	pkgdesc = Kernel guest modules for VirtualBox (linux-bede)
 	install = virtualbox-modules-bede-guest.install
 	license = GPL
-	depends = linux-bede>=3.17
-	depends = linux-bede<3.18
+	depends = linux-bede>=3.18
+	depends = linux-bede<3.19
 	provides = virtualbox-guest-modules=4.3.20
 
