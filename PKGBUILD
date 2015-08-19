@@ -7,7 +7,7 @@
 pkgbase=virtualbox-modules-bede
 pkgname=('virtualbox-modules-bede-host' 'virtualbox-modules-bede-guest')
 pkgver=5.0.2
-pkgrel=1
+pkgrel=1.1
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
@@ -15,11 +15,9 @@ makedepends=('linux-bede>=4.2rc1' 'linux-bede<4.3' 'linux-bede-headers>=4.2rc1' 
     "virtualbox-host-dkms>=$pkgver"
     "virtualbox-guest-dkms>=$pkgver")
 source=('modules-load-virtualbox-bede'
-    '60-vboxguest.rules'
-    'vboxguest-linux-4.2.patch')
+    '60-vboxguest.rules')
 sha256sums=('9b3c4dc5385fb3b4aeb841043384879c5c7ee926f5343d6a4177e913604f869d'
-            '033c597e0f5285d2ddb0490868e5b6f945f45c7b1b1152a02a9e6fea438b2c95'
-            '9e1f32839cdfae3188743e5087d6882e2ab6a60b366aeb2ad9b81849f5542ac6')
+            '033c597e0f5285d2ddb0490868e5b6f945f45c7b1b1152a02a9e6fea438b2c95')
 
 _extramodules=4.2-BEDE-external
 
@@ -28,10 +26,6 @@ build() {
 
     # dkms need modification to be run as user
     cp -Lr /var/lib/dkms .
-    (
-        cd dkms/vboxguest/
-        patch -Np1 -i $srcdir/vboxguest-linux-4.2.patch
-    )
     echo "dkms_tree='$srcdir/dkms'" > dkms.conf
     # build host modules
     dkms --dkmsframework dkms.conf build "vboxhost/$pkgver" -k "$_kernver"
