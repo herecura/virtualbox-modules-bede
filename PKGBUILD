@@ -7,11 +7,11 @@
 pkgbase=virtualbox-modules-bede
 pkgname=('virtualbox-modules-bede-host' 'virtualbox-modules-bede-guest')
 pkgver=5.0.14
-pkgrel=5
+pkgrel=5.1
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
-makedepends=('linux-bede>=4.4.4' 'linux-bede<4.5' 'linux-bede-headers>=4.4' 'linux-bede-headers<4.5'
+makedepends=('linux-bede>=4.5rc1' 'linux-bede<4.6' 'linux-bede-headers>=4.5rc1' 'linux-bede-headers<4.6'
     "virtualbox-host-dkms>=$pkgver"
     "virtualbox-guest-dkms>=$pkgver")
 source=('modules-load-virtualbox-bede'
@@ -19,31 +19,31 @@ source=('modules-load-virtualbox-bede'
 sha256sums=('9b3c4dc5385fb3b4aeb841043384879c5c7ee926f5343d6a4177e913604f869d'
             '033c597e0f5285d2ddb0490868e5b6f945f45c7b1b1152a02a9e6fea438b2c95')
 
-_extramodules=4.4-BEDE-external
+_extramodules=4.5-BEDE-external
 
-build() {
-    _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
+#build() {
+    #_kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
 
-    # dkms need modification to be run as user
-    cp -Lr /var/lib/dkms .
-    echo "dkms_tree='$srcdir/dkms'" > dkms.conf
-    # build host modules
-    dkms --dkmsframework dkms.conf build "vboxhost/$pkgver" -k "$_kernver"
-    # build guest modules
-    dkms --dkmsframework dkms.conf build "vboxguest/$pkgver" -k "$_kernver"
-}
+    ## dkms need modification to be run as user
+    #cp -Lr /var/lib/dkms .
+    #echo "dkms_tree='$srcdir/dkms'" > dkms.conf
+    ## build host modules
+    #dkms --dkmsframework dkms.conf build "vboxhost/${pkgver}_OSE" -k "$_kernver"
+    ## build guest modules
+    #dkms --dkmsframework dkms.conf build "vboxguest/${pkgver}_OSE" -k "$_kernver"
+#}
 
 package_virtualbox-modules-bede-host() {
     pkgdesc="Kernel host modules for VirtualBox (linux-bede)"
     license=('GPL')
     install=virtualbox-modules-bede-host.install
-    depends=('linux-bede>=4.4' 'linux-bede<4.5')
+    depends=('linux-bede>=4.5rc1' 'linux-bede<4.6')
     provides=("virtualbox-host-modules=$pkgver")
 
     _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
 
     install -dm755 "$pkgdir/usr/lib/modules/$_extramodules/vbox"
-    cd "dkms/vboxhost/$pkgver/$_kernver/$CARCH/module"
+    cd "/var/lib/dkms/vboxhost/${pkgver}_OSE/$_kernver/$CARCH/module"
     install -m644 * "$pkgdir/usr/lib/modules/$_extramodules/vbox"
     find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
 
@@ -58,13 +58,13 @@ package_virtualbox-modules-bede-guest() {
     pkgdesc="Kernel guest modules for VirtualBox (linux-bede)"
     license=('GPL')
     install=virtualbox-modules-bede-guest.install
-    depends=('linux-bede>=4.4' 'linux-bede<4.5')
+    depends=('linux-bede>=4.5rc1' 'linux-bede<4.6')
     provides=("virtualbox-guest-modules=${pkgver}")
 
     _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
 
     install -dm755 "$pkgdir/usr/lib/modules/$_extramodules/vbox"
-    cd "dkms/vboxguest/$pkgver/$_kernver/$CARCH/module"
+    cd "/var/lib/dkms/vboxguest/${pkgver}_OSE/$_kernver/$CARCH/module"
     install -m644 * "$pkgdir/usr/lib/modules/$_extramodules/vbox"
     find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
 
