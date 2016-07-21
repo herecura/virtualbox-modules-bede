@@ -1,4 +1,4 @@
-EXTRAMODULES='4.6-BEDE-external'
+EXTRAMODULES='4.7-BEDE-external'
 
 post_install() {
 cat << EOF
