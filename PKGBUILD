@@ -7,10 +7,10 @@
 pkgbase=virtualbox-modules-bede
 pkgname=('virtualbox-modules-bede-host' 'virtualbox-modules-bede-guest')
 pkgver=5.1.14
-_extramodules=4.9-BEDE-external
-_current_linux_version=4.9.11
-_next_linux_version=4.10
-pkgrel=8
+_extramodules=4.10-BEDE-external
+_current_linux_version=4.10rc8
+_next_linux_version=4.11
+pkgrel=7
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
@@ -23,10 +23,23 @@ makedepends=(
     "virtualbox-guest-dkms>=$pkgver"
 )
 source=('modules-load-virtualbox-bede'
-    '60-vboxguest.rules')
-sha256sums=('9b3c4dc5385fb3b4aeb841043384879c5c7ee926f5343d6a4177e913604f869d'
-            '033c597e0f5285d2ddb0490868e5b6f945f45c7b1b1152a02a9e6fea438b2c95')
+    '60-vboxguest.rules'
+    'linux-4.10.patch')
+sha512sums=('e91bca3a219ea2fee594c43a9915d17381675dc3af4f0ba980b64e42fa7df28e38a7fcffa8089d8f859d532ae7b08ac7157afea4f3bf907136cb3abd1b4f4867'
+            '2e0a925a2bd13bf4e224ddbf1923effdfe673081e165927e9fc2a75550a2231f5262df26585d9efed79da3adff295cb631dd16831a4ece0ddea6d3b494809707'
+            'bdb8478d142f6a64377f66f4e6d968087c7c23020bc41747df06b91f9d5f01310aa3d616f848088cd009ac4c9e8d273cc909b2f1895399a52f365754ddafa93b')
 
+build() {
+    _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
+
+    # dkms need modification to be run as user
+    cp -Lr /var/lib/dkms .
+    echo "dkms_tree='$srcdir/dkms'" > dkms.conf
+
+    patch -p1 -i "$srcdir/linux-4.10.patch"
+    # build guest modules
+    dkms --dkmsframework dkms.conf build "vboxguest/${pkgver}_OSE" -k "$_kernver"
+}
 
 package_virtualbox-modules-bede-host() {
     pkgdesc="Kernel host modules for VirtualBox (linux-bede)"
@@ -61,7 +74,8 @@ package_virtualbox-modules-bede-guest() {
     _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
 
     install -dm755 "$pkgdir/usr/lib/modules/$_extramodules/vbox"
-    cd "/var/lib/dkms/vboxguest/${pkgver}_OSE/$_kernver/$CARCH/module"
+    #cd "/var/lib/dkms/vboxguest/${pkgver}_OSE/$_kernver/$CARCH/module"
+    cd dkms/vboxguest/${pkgver}_OSE/$_kernver/$CARCH/module
     install -m644 * "$pkgdir/usr/lib/modules/$_extramodules/vbox"
     find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
 
