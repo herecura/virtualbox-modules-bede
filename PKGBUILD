@@ -7,10 +7,10 @@
 pkgbase=virtualbox-modules-bede
 pkgname=('virtualbox-modules-bede-host' 'virtualbox-modules-bede-guest')
 pkgver=5.1.14
-_extramodules=4.9-BEDE-external
-_current_linux_version=4.9.13
-_next_linux_version=4.10
-pkgrel=11
+_extramodules=4.10-BEDE-external
+_current_linux_version=4.10.1
+_next_linux_version=4.11
+pkgrel=12
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
@@ -24,9 +24,8 @@ makedepends=(
 )
 source=('modules-load-virtualbox-bede'
     '60-vboxguest.rules')
-sha256sums=('9b3c4dc5385fb3b4aeb841043384879c5c7ee926f5343d6a4177e913604f869d'
-            '033c597e0f5285d2ddb0490868e5b6f945f45c7b1b1152a02a9e6fea438b2c95')
-
+sha512sums=('e91bca3a219ea2fee594c43a9915d17381675dc3af4f0ba980b64e42fa7df28e38a7fcffa8089d8f859d532ae7b08ac7157afea4f3bf907136cb3abd1b4f4867'
+            '2e0a925a2bd13bf4e224ddbf1923effdfe673081e165927e9fc2a75550a2231f5262df26585d9efed79da3adff295cb631dd16831a4ece0ddea6d3b494809707')
 
 package_virtualbox-modules-bede-host() {
     pkgdesc="Kernel host modules for VirtualBox (linux-bede)"
