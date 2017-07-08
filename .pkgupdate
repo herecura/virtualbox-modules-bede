@@ -1,3 +1,0 @@
-update__current_linux_version=4.12
-update_pkgver="$pkgver"
-update_pkgrel="$(expr $pkgrel + 1)"
