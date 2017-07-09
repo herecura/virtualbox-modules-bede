@@ -1,0 +1,11 @@
+--- a/dkms/vboxhost/5.1.22_OSE/source/vboxdrv/linux/SUPDrv-linux.c	2017-07-09 19:05:40.388484379 +0200
++++ b/dkms/vboxhost/5.1.22_OSE/source/vboxdrv/linux/SUPDrv-linux.c	2017-07-09 19:05:58.137016039 +0200
+@@ -1397,7 +1397,7 @@
+ SUPR0DECL(uint32_t) SUPR0GetKernelFeatures(void)
+ {
+     uint32_t fFlags = 0;
+-#ifdef CONFIG_PAX_KERNEXEC
++#if defined(CONFIG_PAX_KERNEXEC) || LINUX_VERSION_CODE >= KERNEL_VERSION(4, 12, 0)
+     fFlags |= SUPKERNELFEATURES_GDT_READ_ONLY;
+ #endif
+ #if defined(VBOX_STRICT) || defined(VBOX_WITH_EFLAGS_AC_SET_IN_VBOXDRV)
