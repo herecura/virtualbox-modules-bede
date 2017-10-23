@@ -6,9 +6,9 @@
 
 pkgbase=virtualbox-modules-bede
 pkgname=('virtualbox-modules-bede-host' 'virtualbox-modules-bede-guest')
-pkgver=5.1.30
+pkgver=5.2.0
 _extramodules=4.13-BEDE-external
-_current_linux_version=4.13.8
+_current_linux_version=4.13.9
 _next_linux_version=4.14
 pkgrel=2
 arch=('x86_64')
