@@ -1,0 +1,76 @@
+diff -Npur a/vboxguest/5.2.0_OSE/source/vboxvideo/vbox_drv.c b/vboxguest/5.2.0_OSE/source/vboxvideo/vbox_drv.c
+--- a/vboxguest/5.2.0_OSE/source/vboxvideo/vbox_drv.c	2017-10-20 05:03:46.394823000 -0400
++++ b/vboxguest/5.2.0_OSE/source/vboxvideo/vbox_drv.c	2017-10-20 05:07:22.328048201 -0400
+@@ -266,9 +266,6 @@ static struct drm_driver driver = {
+ 	.lastclose = vbox_driver_lastclose,
+ 	.master_set = vbox_master_set,
+ 	.master_drop = vbox_master_drop,
+-#if LINUX_VERSION_CODE >= KERNEL_VERSION(3, 18, 0) || defined(RHEL_73)
+-	.set_busid = drm_pci_set_busid,
+-#endif
+ 
+ 	.fops = &vbox_fops,
+ 	.irq_handler = vbox_irq_handler,
+@@ -310,12 +307,12 @@ static int __init vbox_init(void)
+ 	if (vbox_modeset == 0)
+ 		return -EINVAL;
+ 
+-	return drm_pci_init(&driver, &vbox_pci_driver);
++	return pci_register_driver(&vbox_pci_driver);
+ }
+ 
+ static void __exit vbox_exit(void)
+ {
+-	drm_pci_exit(&driver, &vbox_pci_driver);
++	pci_unregister_driver(&vbox_pci_driver);
+ }
+ 
+ module_init(vbox_init);
+diff -Npur a/vboxguest/5.2.0_OSE/source/vboxvideo/vbox_fb.c b/vboxguest/5.2.0_OSE/source/vboxvideo/vbox_fb.c
+--- a/vboxguest/5.2.0_OSE/source/vboxvideo/vbox_fb.c	2017-10-20 05:03:46.398156000 -0400
++++ b/vboxguest/5.2.0_OSE/source/vboxvideo/vbox_fb.c	2017-10-20 05:08:56.207580544 -0400
+@@ -333,22 +333,7 @@ static int vboxfb_create(struct drm_fb_h
+ 	return 0;
+ }
+ 
+-static void vbox_fb_gamma_set(struct drm_crtc *crtc, u16 red, u16 green,
+-			      u16 blue, int regno)
+-{
+-}
+-
+-static void vbox_fb_gamma_get(struct drm_crtc *crtc, u16 *red, u16 *green,
+-			      u16 *blue, int regno)
+-{
+-	*red = regno;
+-	*green = regno;
+-	*blue = regno;
+-}
+-
+ static struct drm_fb_helper_funcs vbox_fb_helper_funcs = {
+-	.gamma_set = vbox_fb_gamma_set,
+-	.gamma_get = vbox_fb_gamma_get,
+ 	.fb_probe = vboxfb_create,
+ };
+ 
+diff -Npur a/vboxguest/5.2.0_OSE/source/vboxvideo/vbox_mode.c b/vboxguest/5.2.0_OSE/source/vboxvideo/vbox_mode.c
+--- a/vboxguest/5.2.0_OSE/source/vboxvideo/vbox_mode.c	2017-10-20 05:03:46.394823000 -0400
++++ b/vboxguest/5.2.0_OSE/source/vboxvideo/vbox_mode.c	2017-10-20 05:08:16.929713845 -0400
+@@ -146,10 +146,6 @@ static int vbox_set_view(struct drm_crtc
+ 	return 0;
+ }
+ 
+-static void vbox_crtc_load_lut(struct drm_crtc *crtc)
+-{
+-}
+-
+ static void vbox_crtc_dpms(struct drm_crtc *crtc, int mode)
+ {
+ 	struct vbox_crtc *vbox_crtc = to_vbox_crtc(crtc);
+@@ -343,7 +339,6 @@ static const struct drm_crtc_helper_func
+ 	.mode_set = vbox_crtc_mode_set,
+ 	/* .mode_set_base = vbox_crtc_mode_set_base, */
+ 	.disable = vbox_crtc_disable,
+-	.load_lut = vbox_crtc_load_lut,
+ 	.prepare = vbox_crtc_prepare,
+ 	.commit = vbox_crtc_commit,
+ };
