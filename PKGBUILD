@@ -7,10 +7,10 @@
 pkgbase=virtualbox-modules-bede
 pkgname=('virtualbox-modules-bede-host' 'virtualbox-modules-bede-guest')
 pkgver=5.2.0
-_extramodules=4.13-BEDE-external
-_current_linux_version=4.13.13
-_next_linux_version=4.14
-pkgrel=11
+_extramodules=4.14-BEDE-external
+_current_linux_version=4.14.1
+_next_linux_version=4.15
+pkgrel=15
 arch=('x86_64')
 url='http://virtualbox.org'
 license=('GPL')
@@ -35,9 +35,16 @@ sha512sums=('e91bca3a219ea2fee594c43a9915d17381675dc3af4f0ba980b64e42fa7df28e38a
     #cp -Lr /var/lib/dkms .
     #echo "dkms_tree='$srcdir/dkms'" > dkms.conf
 
-    #patch -p1 -i "$srcdir/linux-4.12-part2.patch"
+    #(
+        #cd dkms/vboxhost/${pkgver}_OSE/source
+        #patch -p1 -i "$srcdir/virtualbox-modules-5.1.28-udp.patch"
+    #)
     ## build host modules
     #dkms --dkmsframework dkms.conf build "vboxhost/${pkgver}_OSE" -k "$_kernver"
+    #(
+        #cd dkms
+        #patch -p1 -i "$srcdir/linux-4.14-guest.patch"
+    #)
     ## build guest modules
     #dkms --dkmsframework dkms.conf build "vboxguest/${pkgver}_OSE" -k "$_kernver"
 #}
@@ -54,6 +61,7 @@ package_virtualbox-modules-bede-host() {
     _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
 
     install -dm755 "$pkgdir/usr/lib/modules/$_extramodules/vbox"
+    # when dkms was used
     cd "/var/lib/dkms/vboxhost/${pkgver}_OSE/$_kernver/$CARCH/module"
     # when build is used
     #cd dkms/vboxhost/${pkgver}_OSE/$_kernver/$CARCH/module
@@ -77,6 +85,7 @@ package_virtualbox-modules-bede-guest() {
     _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
 
     install -dm755 "$pkgdir/usr/lib/modules/$_extramodules/vbox"
+    # when dkms was used
     cd "/var/lib/dkms/vboxguest/${pkgver}_OSE/$_kernver/$CARCH/module"
     # when build is used
     #cd dkms/vboxguest/${pkgver}_OSE/$_kernver/$CARCH/module
