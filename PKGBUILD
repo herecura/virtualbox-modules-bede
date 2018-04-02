@@ -5,12 +5,12 @@
 # Contributor: Sébastien Luttringer <seblu@aur.archlinux.org>
 
 pkgbase=virtualbox-modules-bede
-pkgname=('virtualbox-modules-bede-host' 'virtualbox-modules-bede-guest')
+pkgname=('virtualbox-modules-bede-host')
 pkgver=5.2.8
-_extramodules=4.15-BEDE-external
-_current_linux_version=4.15.15
-_next_linux_version=4.16
-pkgrel=9
+_extramodules=4.16-BEDE-external
+_current_linux_version=4.16
+_next_linux_version=4.17
+pkgrel=10
 arch=('x86_64')
 url='http://virtualbox.org'
 license=('GPL')
@@ -41,12 +41,6 @@ sha512sums=('e91bca3a219ea2fee594c43a9915d17381675dc3af4f0ba980b64e42fa7df28e38a
     #)
     ## build host modules
     #dkms --dkmsframework dkms.conf build "vboxhost/${pkgver}_OSE" -k "$_kernver"
-    #(
-        #cd dkms
-        #patch -p1 -i "$srcdir/linux-4.14-guest.patch"
-    #)
-    ## build guest modules
-    #dkms --dkmsframework dkms.conf build "vboxguest/${pkgver}_OSE" -k "$_kernver"
 #}
 
 package_virtualbox-modules-bede-host() {
@@ -71,28 +65,5 @@ package_virtualbox-modules-bede-host() {
     # install config file in modules-load.d for out of the box experience
     install -Dm644 "$srcdir/modules-load-virtualbox-bede" \
         "$pkgdir/usr/lib/modules-load.d/virtualbox-modules-bede-host.conf"
-}
-
-package_virtualbox-modules-bede-guest() {
-    pkgdesc="Kernel guest modules for VirtualBox (linux-bede)"
-    license=('GPL')
-    depends=(
-        "linux-bede>=$_current_linux_version"
-        "linux-bede<$_next_linux_version"
-    )
-    provides=('VIRTUALBOX-GUEST-MODULES')
-
-    _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
-
-    install -dm755 "$pkgdir/usr/lib/modules/$_extramodules/vbox"
-    # when dkms was used
-    cd "/var/lib/dkms/vboxguest/${pkgver}_OSE/$_kernver/$CARCH/module"
-    # when build is used
-    #cd dkms/vboxguest/${pkgver}_OSE/$_kernver/$CARCH/module
-    install -m644 * "$pkgdir/usr/lib/modules/$_extramodules/vbox"
-    find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
-
-    install -D -m 0644 "$srcdir/60-vboxguest.rules" \
-        "$pkgdir/usr/lib/udev/rules.d/60-vboxguest-bede.rules"
 }
 
