@@ -1,4 +1,3 @@
-# vim:set ft=sh et:
 # $Id$
 # Maintainer: Bartłomiej Piotrowski <nospam@bpiotrowski.pl>
 # Contributor: Ionut Biru <ibiru@archlinux.org>
@@ -8,9 +7,9 @@ pkgbase=virtualbox-modules-bede
 pkgname=('virtualbox-modules-bede-host')
 pkgver=5.2.12
 _extramodules=4.17-BEDE-external
-_current_linux_version=4.17rc7
+_current_linux_version=4.17
 _next_linux_version=4.18
-pkgrel=10
+pkgrel=12
 arch=('x86_64')
 url='http://virtualbox.org'
 license=('GPL')
