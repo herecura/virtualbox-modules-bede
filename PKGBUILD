@@ -6,10 +6,10 @@
 pkgbase=virtualbox-modules-bede
 pkgname=('virtualbox-modules-bede-host')
 pkgver=5.2.16
-_extramodules=4.17-BEDE-external
-_current_linux_version=4.17.14
-_next_linux_version=4.18
-pkgrel=9
+_extramodules=4.18-BEDE-external
+_current_linux_version=4.18
+_next_linux_version=4.19
+pkgrel=10
 arch=('x86_64')
 url='http://virtualbox.org'
 license=('GPL')
@@ -59,7 +59,7 @@ package_virtualbox-modules-bede-host() {
     # when build is used
     #cd dkms/vboxhost/${pkgver}_OSE/$_kernver/$CARCH/module
     install -m644 * "$pkgdir/usr/lib/modules/$_extramodules/vbox"
-    find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
+    find "${pkgdir}" -name '*.ko' -exec xz {} +
 
     # install config file in modules-load.d for out of the box experience
     install -Dm644 "$srcdir/modules-load-virtualbox-bede" \
