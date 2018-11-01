@@ -1,3 +1,4 @@
+# $Id$
 # Maintainer: Bartłomiej Piotrowski <nospam@bpiotrowski.pl>
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 # Contributor: Sébastien Luttringer <seblu@aur.archlinux.org>
@@ -5,10 +6,10 @@
 pkgbase=virtualbox-modules-bede
 pkgname=('virtualbox-modules-bede-host')
 pkgver=5.2.20
-_extramodules=4.18-BEDE-external
-_current_linux_version=4.18.16
-_next_linux_version=4.19
-pkgrel=2
+_extramodules=4.19-BEDE-external
+_current_linux_version=4.19
+_next_linux_version=4.20
+pkgrel=6
 arch=('x86_64')
 url='http://virtualbox.org'
 license=('GPL')
