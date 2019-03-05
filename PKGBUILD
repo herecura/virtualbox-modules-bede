@@ -5,10 +5,10 @@
 pkgbase=virtualbox-modules-bede
 pkgname=('virtualbox-modules-bede-host' 'virtualbox-modules-bede-guest')
 pkgver=6.0.4
-_extramodules=4.20-BEDE-external
-_current_linux_version=4.20.14
-_next_linux_version=4.21
-pkgrel=10
+_extramodules=5.0-BEDE-external
+_current_linux_version=5.0
+_next_linux_version=5.1
+pkgrel=11
 arch=('x86_64')
 url='http://virtualbox.org'
 license=('GPL')
@@ -33,9 +33,9 @@ sha512sums=('e91bca3a219ea2fee594c43a9915d17381675dc3af4f0ba980b64e42fa7df28e38a
 
     #(
         #cd dkms/vboxhost/${pkgver}_OSE/source
-        #patch -p1 -i "$srcdir/linux-4.20-vboxnetadp.patch"
-        #patch -p1 -i "$srcdir/linux-4.20-time-r0drv-linux.patch"
-        #patch -p1 -i "$srcdir/linux-4.20-iprt-time.patch"
+        #patch -p1 -i "$srcdir/linux-5.0-vboxnetadp.patch"
+        #patch -p1 -i "$srcdir/linux-5.0-time-r0drv-linux.patch"
+        #patch -p1 -i "$srcdir/linux-5.0-iprt-time.patch"
     #)
     ## build host modules
     #dkms --dkmsframework dkms.conf build "vboxhost/${pkgver}_OSE" -k "$_kernver"
