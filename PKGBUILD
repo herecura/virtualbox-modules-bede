@@ -4,11 +4,11 @@
 
 pkgbase=virtualbox-modules-bede
 pkgname=('virtualbox-modules-bede-host' 'virtualbox-modules-bede-guest')
-pkgver=6.0.6
+pkgver=6.0.8
 _extramodules=5.1-BEDE-external
-_current_linux_version=5.1.2
+_current_linux_version=5.1.3
 _next_linux_version=5.2
-pkgrel=13
+pkgrel=2
 arch=('x86_64')
 url='http://virtualbox.org'
 license=('GPL')
