@@ -8,7 +8,7 @@ pkgver=6.0.14
 _extramodules=5.3-BEDE-external
 _current_linux_version=5.3.9
 _next_linux_version=5.4
-pkgrel=4
+pkgrel=5
 arch=('x86_64')
 url='http://virtualbox.org'
 license=('GPL')
@@ -25,7 +25,7 @@ sha512sums=('e91bca3a219ea2fee594c43a9915d17381675dc3af4f0ba980b64e42fa7df28e38a
 
 # in case we need to do some patching
 #build() {
-    #_kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
+    #_kernver="$(cat /usr/src/linux-bede/version)"
 
     ## dkms need modification to be run as user
     #cp -Lr /var/lib/dkms .
@@ -50,14 +50,15 @@ package_virtualbox-modules-bede-host() {
     )
     provides=('VIRTUALBOX-HOST-MODULES')
 
-    _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
+    local kernver="$(</usr/src/linux-bede/version)"
+    local extradir="/usr/lib/modules/$kernver/extramodules"
 
-    install -dm755 "$pkgdir/usr/lib/modules/$_extramodules/vbox"
     # when dkms was used
-    cd "/var/lib/dkms/vboxhost/${pkgver}_OSE/$_kernver/$CARCH/module"
+    cd "/var/lib/dkms/vboxhost/${pkgver}_OSE/$kernver/$CARCH/module"
     # when build is used
     #cd dkms/vboxhost/${pkgver}_OSE/$_kernver/$CARCH/module
-    install -m644 * "$pkgdir/usr/lib/modules/$_extramodules/vbox"
+    install -dm755 "${pkgdir}${extradir}/$pkgname"
+    install -Dm644 * "${pkgdir}${extradir}/$pkgname/"
     find "${pkgdir}" -name '*.ko' -exec xz {} +
 
     # install config file in modules-load.d for out of the box experience
@@ -74,11 +75,12 @@ package_virtualbox-modules-bede-guest() {
     )
     provides=('VIRTUALBOX-GUEST-MODULES')
 
-    _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
+    local kernver="$(</usr/src/linux-bede/version)"
+    local extradir="/usr/lib/modules/$kernver/extramodules"
 
-    install -dm755 "$pkgdir/usr/lib/modules/$_extramodules/vbox"
-    cd "/var/lib/dkms/vboxsf/${pkgver}_OSE/$_kernver/$CARCH/module"
-    install -m644 * "$pkgdir/usr/lib/modules/$_extramodules/vbox"
+    cd "/var/lib/dkms/vboxsf/${pkgver}_OSE/$kernver/$CARCH/module"
+    install -dm755 "${pkgdir}${extradir}/$pkgname"
+    install -Dm644 * "${pkgdir}${extradir}/$pkgname/"
     find "${pkgdir}" -name '*.ko' -exec xz {} +
 }
 
