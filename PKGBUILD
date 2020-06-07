@@ -7,7 +7,7 @@ pkgname=('virtualbox-modules-bede-host')
 pkgver=6.1.8
 _current_linux_version=5.7.1
 _next_linux_version=5.8
-pkgrel=8
+pkgrel=9
 arch=('x86_64')
 url='http://virtualbox.org'
 license=('GPL')
@@ -20,7 +20,7 @@ makedepends=(
     "virtualbox-guest-dkms>=$pkgver"
 )
 source=('modules-load-virtualbox-bede')
-sha512sums=('e91bca3a219ea2fee594c43a9915d17381675dc3af4f0ba980b64e42fa7df28e38a7fcffa8089d8f859d532ae7b08ac7157afea4f3bf907136cb3abd1b4f4867')
+sha512sums=('80bf2c8a402ab066fb70c39a241fa92494c07616fe347bd2ed35b68ddfddab1ceed6322493848f28400fc4706c631e7376646aac0bb572b686bf98aa6d8a8991')
 
 # in case we need to do some patching
 #build() {
