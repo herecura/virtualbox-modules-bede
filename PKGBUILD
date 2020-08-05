@@ -5,8 +5,8 @@
 pkgbase=virtualbox-modules-bede
 pkgname=('virtualbox-modules-bede-host')
 pkgver=6.1.12
-_current_linux_version=5.7.12
-_next_linux_version=5.8
+_current_linux_version=5.8
+_next_linux_version=5.9
 pkgrel=5
 arch=('x86_64')
 url='http://virtualbox.org'
@@ -51,6 +51,9 @@ package_virtualbox-modules-bede-host() {
 
     local kernver="$(</usr/src/linux-bede/version)"
     local extradir="/usr/lib/modules/$kernver/extramodules"
+
+    # output dkms log for easier debugging
+    cat "/var/lib/dkms/vboxhost/${pkgver}_OSE/build/make.log"
 
     # when dkms was used
     cd "/var/lib/dkms/vboxhost/${pkgver}_OSE/$kernver/$CARCH/module"
